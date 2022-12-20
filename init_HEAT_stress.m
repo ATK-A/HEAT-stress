@@ -6,21 +6,27 @@
 % Find which machine is being used
 root_dir = pwd;
 
-% Running locally on AKA's machine
+% Running AKA's VM or local machine
 if length(root_dir) >= 14
-    % Set data directories
-    Inputdir = '/data/inputs/';
-    Tempdirin = '/Volumes/DataDrive/UKCP18/12km/tasmax/run04/';
-%     Tempdirin = '/Volumes/DataDrive/UKCP18/12km/tas/run04/';
-%     Tempdirin = '/Volumes/DataDrive/UKCP18/12km/tasmin/run04/';
-    TempAltdirin = '/Volumes/DataDrive/UKCP18/12km/tas/run04/';
-%     Humdirin = '/Volumes/DataDrive/UKCP18/12km/hurs/run04/';
-    Humdirin = '/Volumes/DataDrive/UKCP18/12km/huss/run04/';
-    Pressuredirin = '/Volumes/DataDrive/UKCP18/12km/psl/run04/';
-    Htdirin = '/Volumes/DataDrive/UKCP18/Height/';
-    
-    Climatedirout = '/Volumes/DataDrive/HEAToutput/DerivedData/';
-    
+    if strcmp(root_dir(1:12),'/home/alanka')
+        Tempdirin = '/home/alanka/Downloads/testing/';
+        Humdirin = '/home/alanka/Downloads/testing/';
+        Climatedirout = '/home/alanka/testing/';
+        
+    else
+        % Set data directories
+        Inputdir = '/data/inputs/';
+        Tempdirin = '/Volumes/DataDrive/UKCP18/12km/tasmax/run04/';
+        %     Tempdirin = '/Volumes/DataDrive/UKCP18/12km/tas/run04/';
+        %     Tempdirin = '/Volumes/DataDrive/UKCP18/12km/tasmin/run04/';
+        TempAltdirin = '/Volumes/DataDrive/UKCP18/12km/tas/run04/';
+        %     Humdirin = '/Volumes/DataDrive/UKCP18/12km/hurs/run04/';
+        Humdirin = '/Volumes/DataDrive/UKCP18/12km/huss/run04/';
+        Pressuredirin = '/Volumes/DataDrive/UKCP18/12km/psl/run04/';
+        Htdirin = '/Volumes/DataDrive/UKCP18/Height/';
+        
+        Climatedirout = '/Volumes/DataDrive/HEAToutput/DerivedData/';
+    end
     
     % Otherwise, assume running on DAFNI (in a Docker container)
 else
@@ -33,7 +39,7 @@ else
     Htdirin = '/data/inputs/Height/';
     
     Climatedirout = '/data/outputs/Climate/';
-
+    
     % Note: in this case, 'addpath' should have been done before building
     % the Matlab executable and Docker file, by running add_paths.m.
     
