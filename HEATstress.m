@@ -412,15 +412,6 @@ ncwriteatt(fname_long,Variable,'plot_label',plot_label);
 ncwriteatt(fname_long,Variable,'coordinates','ensemble_member_id latitude longitude month_number year yyyymmdd');
 ncwriteatt(fname_long,Variable,'missing_value',-9999);
 
-% Add lat and long data
-nccreate(fname_long,'projection_x_coordinate','Dimensions',{'projection_x_coordinate',length(x)},'Datatype','single','Format','netcdf4_classic','DeflateLevel',2)
-ncwrite(fname_long,'projection_x_coordinate',x);
-ncwriteatt(fname_long,'projection_x_coordinate','axis','X');
-
-nccreate(fname_long,'projection_y_coordinate','Dimensions',{'projection_y_coordinate',length(y)},'Datatype','single','Format','netcdf4_classic','DeflateLevel',2)
-ncwrite(fname_long,'projection_y_coordinate',y);
-ncwriteatt(fname_long,'projection_y_coordinate','axis','Y');
-
 % Add time and date data
 % Some attributes are easier to read from template than to define
 % manually as they change between simulations
@@ -436,6 +427,15 @@ nccreate(fname_long,'yyyymmdd','Dimensions',{'time',length(data(1,1,:)),'string6
 ncwrite(fname_long,'yyyymmdd',dates');
 ncwriteatt(fname_long,'yyyymmdd','long_name','yyyymmdd');
 ncwriteatt(fname_long,'yyyymmdd','units','1');
+
+% Add lat and long data
+nccreate(fname_long,'projection_x_coordinate','Dimensions',{'projection_x_coordinate',length(x)},'Datatype','single','Format','netcdf4_classic','DeflateLevel',2)
+ncwrite(fname_long,'projection_x_coordinate',x);
+ncwriteatt(fname_long,'projection_x_coordinate','axis','X');
+
+nccreate(fname_long,'projection_y_coordinate','Dimensions',{'projection_y_coordinate',length(y)},'Datatype','single','Format','netcdf4_classic','DeflateLevel',2)
+ncwrite(fname_long,'projection_y_coordinate',y);
+ncwriteatt(fname_long,'projection_y_coordinate','axis','Y');
 
 % Write some general attributes
 ncwriteatt(fname_long,'/','collection','HEAT-stress derived heat stress metric')
