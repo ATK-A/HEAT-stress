@@ -347,15 +347,29 @@ if ~isempty(files)
         if f == 1
             T = ncread(file,inputs.TempName);
             dates = ncread(file,datename);
+            
+            % Some netCDFs have this saved in different orientation (e.g.
+            % bias corrected data vs UKCP18 raw). Figure out which way it
+            % is oriented to concatenate appropriately:
+            s2 = size(dates);
+            if s2(1) > s2(2)
+                datedim = 1;
+            else
+                datedim = 2;
+            end
             times = ncread(file,timename);
             x = ncread(file,xname);
             y = ncread(file,yname);
         else
             T = cat(3,T,ncread(file,inputs.TempName));
-            dates = cat(2,dates,ncread(file,datename));
+            dates = cat(datedim,dates,ncread(file,datename));
             times = cat(1,times,ncread(file,timename));
         end
     end
+end
+
+if datedim == 1
+    dates = dates';
 end
 
 
