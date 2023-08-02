@@ -1,5 +1,5 @@
 function [] = HEATstress(inputs)
-% HEAT-stress v.1.0
+% HEAT-stress v.2.0
 %
 % Run the OpenCLIM Heat Extremes Analysis Toolbox (HEAT) for calculating
 % heat stress metrics. Climate data in netCDF format is converted to one of
@@ -24,7 +24,7 @@ function [] = HEATstress(inputs)
 % temperature to vapour pressure. Conversion of relative humidity to vapour
 % pressure requires daily mean temperature to be provided. Conversion of
 % specific humidity requires daily mean temperature and daily mean surface
-% pressure to be provided. Althernatively, sea level pressure can pre
+% pressure to be provided. Alternatively, sea level pressure can be
 % provided along with a file showing surface height at each grid cell
 % (named ht.csv) and the conversion of sea level pressure to surface
 % pressure will be carried out.
@@ -49,12 +49,12 @@ function [] = HEATstress(inputs)
 % 
 % 'inputs' is an optional structure for running locally.
 %
-% Coded by A.T. Kennedy-Asser, University of Bristol, 2022.
+% Coded by A.T. Kennedy-Asser, University of Bristol, 2023.
 % Contact: alan.kennedy@bristol.ac.uk
 %
 
 %% Initialise
-disp('Running HEAT-stress v.1.0')
+disp('Running HEAT-stress v.2.0')
 disp('-----')
 
 % Set directory paths
@@ -371,6 +371,16 @@ end
 if datedim == 1
     dates = dates';
 end
+
+dates2 = dates';
+% Correct the date stamp
+y1 = str2double(string(dates2(:,1:4)));
+m1 = str2double(string(dates2(:,5:6)));
+d1 = str2double(string(dates2(:,7:8)));
+ts1 = datetime(y1,m1,d1);
+ts2 = datetime(1970,01,01);
+times2 = hours(ts1 - ts2);
+times = times2;
 
 
 %% Calculate heat stress metric

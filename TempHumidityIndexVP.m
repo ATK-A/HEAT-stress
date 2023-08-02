@@ -5,7 +5,7 @@ function [THI] = ThermalHeatIndexVP(T,VP)
 % using the equation in Dunn et al. 2014 (eq. 1), and conversions to relative humidity from:
 % https://archive.eol.ucar.edu/projects/ceop/dm/documents/refdata_report/eqns.html
 % 
-%   THI = (1.8*T + 3.2) - (0.55 - 0.0055*RH) * (T - 26.8)
+%   THI = (1.8*T + 32) - (0.55 - 0.0055*RH) * (T - 26.8)
 % 
 % Outputs:
 %   THI = Thermal Heat Index
@@ -27,5 +27,5 @@ SVP = 6.112 * exp((17.67*T)./(T+243.5));
 RH = 100 * VP./SVP;
 
 %% Calculate THI
-THI = (1.8*T + 3.2) - (0.55 - 0.0055*RH) .* (T - 26.8);
+THI = (1.8*T + 32) - (0.55 - 0.0055*RH) .* (T - 26.8);
 
